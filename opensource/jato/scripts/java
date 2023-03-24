@@ -1,0 +1,19 @@
+#!/bin/sh
+
+GNU_CLASSPATH_ROOT=$(./tools/classpath-config)
+
+GLIBJ=$GNU_CLASSPATH_ROOT/share/classpath/glibj.zip
+if (test ! -e $GLIBJ)
+then
+  echo "Error! Cannot find GNU Classpath glibj.zip installed."
+  exit
+fi
+
+LIBRARY_PATH=$GNU_CLASSPATH_ROOT/lib/classpath
+if (test ! -d $LIBRARY_PATH)
+then
+  echo "Error! GNU Classpath directory $LIBRARY_PATH does not exist."
+  exit
+fi
+
+./jato -cp $PWD:$GLIBJ $*

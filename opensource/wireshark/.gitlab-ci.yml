@@ -1,0 +1,124 @@
+.build: &build
+  stage: build
+  after_script:
+    - for builddir in build/packaging/rpm/BUILD/wireshark-*/build build/packaging/rpm/BUILD/wireshark-* build obj-*; do [ ! -d "$builddir/run" ] || break; done
+    - if [[ "$CI_JOB_NAME" == "build:rpm-opensuse-"* ]]; then export LD_LIBRARY_PATH=$builddir/run; fi
+    - if [ -f $builddir/run/tshark ]; then $builddir/run/tshark --version; fi
+
+# The custom Ubuntu image pre-installs dependencies and compilers to speed up the build:
+# https://hub.docker.com/r/wireshark/wireshark-ubuntu-dev
+# https://github.com/wireshark/wireshark-ubuntu-dev-docker
+.build-ubuntu: &build-ubuntu
+  <<: *build
+  image: wireshark/wireshark-ubuntu-dev
+  retry: 1
+  before_script:
+    - apt-get update -qq
+    - ./tools/debian-setup.sh --install-optional --install-test-deps -y
+    - useradd user
+    - locale-gen en_US.UTF-8
+    - export LANG=en_US.UTF-8
+    - export PYTEST_ADDOPTS=--skip-missing-programs=dumpcap,rawshark
+    - mkdir build
+    - cd build
+  script:
+    - cmake -GNinja $CMAKE_ARGS ..
+    - ninja
+    - ninja test-programs
+    - chown -R user .
+    - if [ -f run/dumpcap ]; then setcap cap_net_raw,cap_net_admin+eip run/dumpcap; fi
+    - su user -c pytest-3
+
+.build-rpm: &build-rpm
+  <<: *build
+  artifacts:
+    paths:
+      - build/packaging/rpm/RPMS
+    expire_in: 3 days
+
+# Rely on fedora:latest and debian-stable jobs for testing a recent GCC version.
+clang-10:
+  <<: *build-ubuntu
+  variables:
+    CC: clang-10
+    CXX: clang++-10
+
+build:rpm-centos-7:
+  <<: *build-rpm
+  image: centos:7
+  script:
+    - yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    - tools/rpm-setup.sh --install-optional -y
+    - mkdir build
+    - cd build
+    - cmake3 -GNinja ..
+    - ninja-build rpm-package
+test:rpm-centos-7:
+  stage: test
+  image: centos:7
+  script:
+    - yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    - yum --nogpgcheck localinstall -y build/packaging/rpm/RPMS/x86_64/*.rpm
+    - tshark --version
+  dependencies:
+    - build:rpm-centos-7
+  variables:
+    GIT_STRATEGY: none
+build:rpm-opensuse-15.1:
+  image: opensuse/leap:15.1
+  <<: *build-rpm
+  script:
+    - zypper --non-interactive install update-desktop-files
+    - tools/rpm-setup.sh --install-optional ruby
+    - gem install asciidoctor -v 1.5.8 --no-ri --no-rdoc
+    - mkdir build
+    - cd build
+    - cmake -GNinja ..
+    - ninja rpm-package
+test:rpm-opensuse-15.1:
+  image: opensuse/leap:15.1
+  stage: test
+  script:
+    - zypper --no-gpg-checks install -y build/packaging/rpm/RPMS/x86_64/*.rpm
+    - tshark --version
+  variables:
+    GIT_STRATEGY: none
+  dependencies:
+    - build:rpm-opensuse-15.1
+build:rpm-fedora:
+  <<: *build-rpm
+  image: fedora
+  script:
+    - dnf upgrade -y
+    - tools/rpm-setup.sh --install-optional -y
+    - mkdir build
+    - cd build
+    - cmake3 -GNinja ..
+    - ninja-build rpm-package
+test:rpm-fedora:
+  image: fedora
+  stage: test
+  script:
+    - dnf install -y build/packaging/rpm/RPMS/x86_64/*.rpm
+    - tshark --version
+  variables:
+    GIT_STRATEGY: none
+  dependencies:
+    - build:rpm-fedora
+
+# Job to generate packages for Debian stable
+build:debian-stable:
+  <<: *build
+  image: debian:stable
+  before_script:
+    - ./tools/debian-setup.sh --install-optional --install-test-deps -y --install-deb-deps
+  script:
+    # Shared GitLab runners limit the log size to 4M, so reduce verbosity. See
+    # https://gitlab.com/gitlab-com/support-forum/issues/2790
+    - DH_QUIET=1 dpkg-buildpackage -b --no-sign -jauto
+    - mkdir debian-packages
+    - mv ../*.deb debian-packages/
+  artifacts:
+    paths:
+      - debian-packages/*.deb
+    expire_in: 3 days

@@ -1,0 +1,100 @@
+Wireshark 3.3.0 Release Notes
+
+ This is an experimental release intended to test new features for
+ Wireshark 3.4.
+
+ What is Wireshark?
+
+  Wireshark is the world’s most popular network protocol analyzer. It is
+  used for troubleshooting, analysis, development and education.
+
+ What’s New
+
+  Many improvements have been made. See the “New and Updated Features”
+  section below for more details.
+
+  New and Updated Features
+
+   The following features are new (or have been significantly updated)
+   since version 3.2.0:
+
+     • Windows executables and installers are now signed using SHA-2
+       only[1].
+
+     • Save RTP stream to .au supports any codec with 8000 Hz rate
+       supported by Wireshark (shown in RTP player). If save of audio is
+       not possible (unsupported codec or rate), silence of same length
+       is saved and warning is shown.
+
+     • C-ares is now a required dependency.
+
+     • Protobuf fields can be dissected as wireshark (header) fields
+       that allows user input the full names of Protobuf fields or
+       messages in Filter toolbar for searching.
+
+     • Dissector based on Protobuf can register itself to a new
+       'protobuf_field' dissector table, which is keyed with the full
+       names of fields, for further parsing fields of BYETS or STRING
+       type.
+
+     • Wireshark is able to decode, play and save iLBC payload on
+       platforms where iLBC library
+       (https://github.com/TimothyGu/libilbc) is available.
+
+  New Protocol Support
+
+   AudioCodes Debug Recording (ACDR), Cisco MisCabling Protocol (MCP),
+   OBSAI UDP-based Communication Protocol (UDPCP), Tunnel Extensible
+   Authentication Protocol (TEAP), and USB Printer (USBPRINTER)
+
+  Updated Protocol Support
+
+   Too many protocols have been updated to list here.
+
+  New and Updated Capture File Support
+
+ Getting Wireshark
+
+  Wireshark source code and installation packages are available from
+  https://www.wireshark.org/download.html.
+
+  Vendor-supplied Packages
+
+   Most Linux and Unix vendors supply their own Wireshark packages. You
+   can usually install or upgrade Wireshark using the package management
+   system specific to that platform. A list of third-party packages can
+   be found on the download page[2] on the Wireshark web site.
+
+ File Locations
+
+  Wireshark and TShark look in several different locations for
+  preference files, plugins, SNMP MIBS, and RADIUS dictionaries. These
+  locations vary from platform to platform. You can use About→Folders to
+  find the default locations on your system.
+
+ Getting Help
+
+  The User’s Guide, manual pages and various other documentation can be
+  found at https://www.wireshark.org/docs/
+
+  Community support is available on Wireshark’s Q&A site[3] and on the
+  wireshark-users mailing list. Subscription information and archives
+  for all of Wireshark’s mailing lists can be found on the web site[4].
+
+  Bugs and feature requests can be reported on the bug tracker[5].
+
+ Frequently Asked Questions
+
+  A complete FAQ is available on the Wireshark web site[6].
+
+  Last updated 2020-04-05 08:04:25 UTC
+
+ References
+
+   1. https://support.microsoft.com/en-us/help/4472027/2019-sha-2-code-s
+  igning-support-requirement-for-windows-and-wsus
+   2. https://www.wireshark.org/download.html#thirdparty
+   3. https://ask.wireshark.org/
+   4. https://www.wireshark.org/lists/
+   5. https://bugs.wireshark.org/
+   6. https://www.wireshark.org/faq.html

@@ -1,0 +1,34 @@
+  (N) - Name and email, (D) - Description, (L) - Location
+
+-------
+
+N: Pekka Enberg <penberg@cs.helsinki.fi>
+W: http://www.cs.helsinki.fi/u/penberg/
+D: Author and maintainer, initial work on i386 JIT
+L: Finland
+
+N: Tomasz Grabiec <tgrabiec@gmail.com>
+D: Exception handling mechanisms (GSoC 2009)
+L: Cracow, Poland
+
+N: Arthur Huillet <arthur.huillet AT free.fr>
+W: http://www.agoctrl.org/
+D: x86, register allocation
+L: France
+
+N: Vegard Nossum <vegard.nossum@gmail.com>
+W: http://folk.uio.no/vegardno/
+D: Class loading (GSoC 2009), VM core
+L: Oslo, Norway
+
+N: Saeed Siam <saeed.siam@gmail.com>
+D: Array handling, VMT
+L: Dhaka, Bangladesh
+
+N: Eduard - Gabriel Munteanu <eduard.munteanu@linux360.ro>
+D: x86-64 (GSoC 2009), GDB support
+L: Bucharest, Romania
+
+N: Theo Dzierzbicki <theo.dz@gmail.com>
+D: Bytecode verification
+L: Lyon, France
