@@ -1,0 +1,69 @@
+[submodule "others/ebiggers/wimlib"]
+	path = others/ebiggers/wimlib
+	url = https://github.com/ebiggers/wimlib.git
+[submodule "others/ebiggers/libdeflate"]
+	path = others/ebiggers/libdeflate
+	url = https://github.com/ebiggers/libdeflate.git
+[submodule "others/ebiggers/avl_tree"]
+	path = others/ebiggers/avl_tree
+	url = https://github.com/ebiggers/avl_tree.git
+[submodule "others/ebiggers/fat-fuse"]
+	path = others/ebiggers/fat-fuse
+	url = https://github.com/ebiggers/fat-fuse.git
+[submodule "others/jason/cgit"]
+	path = others/jason/cgit
+	url = https://git.zx2c4.com/cgit
+[submodule "others/jensaxboe/fio"]
+	path = others/jensaxboe/fio
+	url = https://github.com/axboe/fio.git
+[submodule "others/tedtso/e2fsprogs"]
+	path = others/tedtso/e2fsprogs
+	url = https://github.com/tytso/e2fsprogs.git
+[submodule "others/KristianHogsberg/wayland"]
+	path = others/KristianHogsberg/wayland
+	url = https://gitlab.freedesktop.org/wayland/wayland.git
+[submodule "others/cairo"]
+	path = others/cairo
+	url = https://github.com/freedesktop/cairo.git
+[submodule "others/pixman"]
+	path = others/pixman
+	url = https://github.com/freedesktop/pixman.git
+[submodule "others/musl"]
+	path = others/musl
+	url = https://git.musl-libc.org/git/musl
+[submodule "others/libspng"]
+	path = others/libspng
+	url = https://github.com/randy408/libspng.git
+[submodule "others/jemalloc"]
+	path = others/jemalloc
+	url = https://github.com/jemalloc/jemalloc.git
+[submodule "others/dtc"]
+	path = others/dtc
+	url = https://github.com/dgibson/dtc.git
+[submodule "others/dwarves"]
+	path = others/dwarves
+	url = https://github.com/acmel/dwarves.git
+[submodule "others/iproute2"]
+	path = others/iproute2
+	url = https://github.com/shemminger/iproute2.git
+[submodule "others/msquic"]
+	path = others/msquic
+	url = https://github.com/microsoft/msquic.git
+[submodule "others/zisofs-tools"]
+	path = others/zisofs-tools
+	url = https://github.com/vk496/zisofs-tools.git
+[submodule "others/TinyEMU"]
+	path = others/TinyEMU
+	url = https://github.com/fernandotcl/TinyEMU.git
+[submodule "others/jato"]
+	path = others/jato
+	url = https://github.com/jatovm/jato.git
+[submodule "others/rufus"]
+	path = others/rufus
+	url = https://github.com/pbatard/rufus.git
+[submodule "others/wireshark"]
+	path = others/wireshark
+	url = https://gitlab.com/wireshark/wireshark.git
+[submodule "others/jensaxboe/liburing"]
+	path = others/jensaxboe/liburing
+	url = https://github.com/axboe/liburing.git
