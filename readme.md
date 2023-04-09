@@ -181,6 +181,11 @@
     project(command_line_parser)
     add_executable(command_line_parser main.c)
 
+    # create a sub directory called build
+    # cd build
+    # cmake ..                          # generate build files
+    # cmake --build . --config Release  # will use the build files generated in the previous step
+
     # commands to run to generate the respective native build files like vcxproj files
     # In below command -S standards for source directory path.
     # -B stands for final directory where vcxproj files are generated
@@ -208,6 +213,12 @@
     #define UINT64_MAX      0xffffffffffffffffui64
     ```
 
+- **[2023-04-08 22:58:25]**
+- UCRT Paths
+  - Include: C:\Program Files (x86)\Windows Kits\10\Include\%Version%\ucrt.
+  - Source: C:\Program Files (x86)\Windows Kits\10\Source\%Version%\ucrt.
+  - Redist DLLs: C:\Program Files (x86)\Windows Kits\10\Redist\%Version%\ucrt\DLLs\%ARCH%.
+  - Debug DLL: C:\Program Files (x86)\Windows Kits\10\bin\%Version%\%ARCH%\ucrt.
 
 ## Going forward
 - Experiment with the functions curated in the [Explore Microsoft UCRT](https://github.com/ntoslinux/C-is-awesome/blob/master/articles/UCRT/ucrt.md)
