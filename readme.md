@@ -220,6 +220,13 @@
   - Redist DLLs: C:\Program Files (x86)\Windows Kits\10\Redist\%Version%\ucrt\DLLs\%ARCH%.
   - Debug DLL: C:\Program Files (x86)\Windows Kits\10\bin\%Version%\%ARCH%\ucrt.
 
+- **[2023-04-10 22:49:45]**
+  - `freopen` can be used to redirect the stdin/stdout/stderr streams
+  - `%S` in printf is not standard C format specifier. It appears to be MSVC extension.
+    - Standard format specifier for wide char in printf is `%ls`.
+    - `printf("Name: %ls", L"ntoslinux");`
+    - `wprintf(L"Name: %ls", L"ntoslinux");`
+
 ## Going forward
 - Experiment with the functions curated in the [Explore Microsoft UCRT](https://github.com/ntoslinux/C-is-awesome/blob/master/articles/UCRT/ucrt.md)
   - At this stage don't worry about build tools. First get comfortable with the fluently writing code. May be a simple make file should be sufficient for now.
